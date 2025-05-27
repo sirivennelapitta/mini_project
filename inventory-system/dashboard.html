@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Smart Inventory Dashboard</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+   
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <!-- Main Layout Container -->
+    <div class="dashboard-container">
+        
+        <!-- Header -->
+        <header class="dashboard-header">
+            <div class="header-brand">
+                <img src="logo.svg" alt="Logo" class="brand-logo">
+                <h1 class="brand-title">Inventory Pro</h1>
+            </div>
+            <div class="header-controls">
+                <button class="notification-btn">
+                    <i class="far fa-bell"></i>
+                    <span class="notification-badge">3</span>
+                </button>
+                
+    <button onclick="logout()" title="Logout"><i class="fas fa-sign-out-alt"></i></button>
+    <div class="user-profile">
+    
+                    <span class="user-avatar">JD</span>
+                    <div class="user-info">
+                        <span class="user-name">John Doe</span>
+                        <span class="user-role">Administrator</span>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content Area -->
+        <div class="dashboard-content">
+            
+            <!-- Left Sidebar -->
+            <nav class="dashboard-sidebar">
+                <ul class="sidebar-menu">
+                    <li class="menu-item active">
+                        <i class="fas fa-box-open"></i>
+                        Inventory Management
+                    </li>
+                    <li class="menu-item">
+                        <i class="fas fa-chart-line"></i>
+                        Analytics
+                    </li>
+                    <li class="menu-item">
+                        <i class="fas fa-cog"></i>
+                        Settings
+                    </li>
+                </ul>
+            </nav>
+
+            <!-- Right Content Panel -->
+            <main class="main-panel">                  
+ <section class="summary-grid">
+  <div class="summary-card shipped" data-summary="shipped">
+    <div class="card-content">
+      <div class="card-icon"><i class="fas fa-truck"></i></div>
+      <div class="card-stats">
+        <h3 class="card-title">Shipped</h3>
+        <p class="card-value">0</p>
+      </div>
+      <div class="card-trend trend-up">+10% <i class="fas fa-arrow-up"></i></div>
+    </div>
+  </div>
+
+  <div class="summary-card delivered" data-summary="delivered">
+    <div class="card-content">
+      <div class="card-icon"><i class="fas fa-check-circle"></i></div>
+      <div class="card-stats">
+        <h3 class="card-title">Delivered</h3>
+        <p class="card-value">0</p>
+      </div>
+      <div class="card-trend trend-up">+8% <i class="fas fa-arrow-up"></i></div>
+    </div>
+  </div>
+
+  <div class="summary-card pending" data-summary="pending">
+    <div class="card-content">
+      <div class="card-icon"><i class="fas fa-clock"></i></div>
+      <div class="card-stats">
+        <h3 class="card-title">Pending</h3>
+        <p class="card-value">0</p>
+      </div>
+      <div class="card-trend trend-down">-5% <i class="fas fa-arrow-down"></i></div>
+    </div>
+  </div>
+
+  <div class="summary-card canceled" data-summary="canceled">
+    <div class="card-content">
+      <div class="card-icon"><i class="fas fa-times-circle"></i></div>
+      <div class="card-stats">
+        <h3 class="card-title">Canceled</h3>
+        <p class="card-value">0</p>
+      </div>
+      <div class="card-trend trend-down">-2% <i class="fas fa-arrow-down"></i></div>
+    </div>
+  </div>
+</section>
+
+                     
+
+               
+
+                <!-- Filters Section -->
+                <section class="filters-section">
+                    <div class="filter-group">
+                        <input type="text" class="search-input" placeholder="Search products..." id="productFilter">
+                    </div>
+                    <div class="filter-group">
+                        <label>Date Range:</label>
+                        <input type="date" class="date-input" id="startDate">
+                        <span class="date-separator">to</span>
+                        <input type="date" class="date-input" id="endDate">
+                    </div>
+                    <button class="filter-btn" onclick="applyFilters()">
+                        <i class="fas fa-filter"></i>
+                        Apply Filters
+                    </button>
+                </section>
+
+                <!-- Data Table Section -->
+                <section class="data-section">
+                    <div class="table-header">
+                        <h2>Inventory Items</h2>
+                        <button class="export-btn" onclick="generatePDF()">
+                            <i class="fas fa-file-export"></i>
+                            Export
+                        </button>
+                    </div>
+                    <div class="table-container">
+                        
+    <table class="data-table" id="inventoryTable">
+      <thead>
+        <tr>
+          <th>Product</th>
+          <th>Status</th>
+          <th>Quantity</th>
+          <th>Date</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+    
+                            <!-- Table content -->
+                        </table>
+                    </div>
+                </section>
+
+                
+                
+
+      </main>
+        </div>
+        <!-- Charts Section -->
+        <section class="charts-section">
+      <div class="chart-container">
+  <div class="chart-header">
+    <h3 class="chart-title">Stock Levels Over Time</h3>
+    <div class="chart-legend">
+      <div class="legend-item">
+        <div class="legend-color" style="background: var(--primary)"></div>
+        <span>Current Stock</span>
+      </div>
+    </div>
+  <div class="chart-wrapper">
+  <canvas id="stockChart"></canvas>
+</div>
+     </section>
+
+       <div class="charts-container">
+  <canvas id="shippedChart" ></canvas>
+  <canvas id="pendingChart" ></canvas>
+  <canvas id="deliveredChart" ></canvas>
+</div>
+        <!-- System Alerts -->
+        <div class="system-alerts">
+            <div class="alert low-stock" id="lowStockAlert" style="display:none;">
+                <i class="fas fa-exclamation-triangle"></i>
+                Low stock detected in 5 items
+            </div>
+        </div>
+
+    </div>
+
+    <script src="scripts/dashboard.js"></script>
+
+<div id="loading" class="loading-overlay" style="display:none;">
+  <div>Loading...</div>
+</div>
+
+</body>
+</html>

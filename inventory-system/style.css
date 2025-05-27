@@ -1,0 +1,502 @@
+/* Modern Enterprise Dashboard Styles */
+:root {
+  --primary: #6366f1;
+  --secondary: #8b5cf6;
+  --success: #10b981;
+  --warning: #f59e0b;
+  --danger: #ef4444;
+  --info: #0ea5e9;
+  --surface: #ffffff;
+  --background: #f8fafc;
+  --text-primary: #1e293b;
+  --text-secondary: #64748b;
+  --border: #e2e8f0;
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.12);
+  --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.1);
+  --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1);
+  --gradient-primary: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+  --gradient-success: linear-gradient(135deg, #10b981 0%, #34d399 100%);
+  --gradient-warning: linear-gradient(135deg, #f59e0b 0%, #fbbf24 100%);
+}
+
+body {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  background: var(--background);
+  color: var(--text-primary);
+  -webkit-font-smoothing: antialiased;
+  margin: 0;
+}
+
+/* Navigation */
+.navbar {
+  background: var(--gradient-primary);
+  padding: 0 2rem;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: var(--shadow-md);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  color: white;
+}
+
+.nav-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: white;
+}
+
+.nav-brand img {
+  height: 32px;
+}
+
+.user-menu {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+/* Dashboard Layout */
+.dashboard-layout {
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  min-height: 100vh;
+}
+
+/* Sidebar */
+.sidebar {
+  background: var(--surface);
+  padding: 1.5rem;
+  border-right: 1px solid var(--border);
+  position: sticky;
+  top: 64px;
+  height: calc(100vh - 64px);
+}
+
+.sidebar-menu {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.sidebar-item {
+  padding: 0.75rem 1rem;
+  border-radius: var(--radius-sm);
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.sidebar-item:hover,
+.sidebar-item.active {
+  background: var(--background);
+  color: var(--primary);
+}
+
+/* Data Cards */
+.data-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+  padding: 2rem;
+}
+
+.data-card {
+  position: relative;
+  overflow: hidden;
+  background: var(--surface);
+  padding: 1.5rem;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.data-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+}
+
+.data-card[data-type="shipped"]::before { background: var(--success); }
+.data-card[data-type="delivered"]::before { background: var(--primary); }
+.data-card[data-type="pending"]::before { background: var(--warning); }
+.data-card[data-type="canceled"]::before { background: var(--danger); }
+
+.data-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.card-title {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.card-value {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 0.5rem;
+}
+
+.card-trend {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+}
+
+.trend-up { color: var(--success); }
+.trend-down { color: var(--danger); }
+
+/* Data Table */
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--surface);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+}
+
+.data-table th {
+  background: var(--background);
+  color: var(--text-secondary);
+  padding: 1rem 1.5rem;
+  text-align: left;
+  font-size: 0.875rem;
+  font-weight: 500;
+  border-bottom: 1px solid var(--border);
+}
+
+.data-table td {
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid var(--border);
+  font-size: 0.875rem;
+}
+
+.data-table tr:last-child td {
+  border-bottom: none;
+}
+
+/* Status Badges */
+.status-badge {
+  padding: 0.375rem 1rem;
+  border-radius: 6px;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.status-shipped {
+  background: rgba(16, 185, 129, 0.1);
+  color: var(--success);
+  border: 1px solid rgba(16, 185, 129, 0.2);
+}
+
+.status-delivered {
+  background: rgba(99, 102, 241, 0.1);
+  color: var(--primary);
+  border: 1px solid rgba(99, 102, 241, 0.2);
+}
+
+.status-pending {
+  background: rgba(245, 158, 11, 0.1);
+  color: var(--warning);
+  border: 1px solid rgba(245, 158, 11, 0.2);
+}
+
+.status-canceled {
+  background: rgba(239, 68, 68, 0.1);
+  color: var(--danger);
+  border: 1px solid rgba(239, 68, 68, 0.2);
+}
+
+/* Filters */
+.filter-bar {
+  display: flex;
+  gap: 1rem;
+  padding: 1.5rem 2rem;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+}
+
+.filter-group {
+  position: relative;
+}
+
+.filter-input {
+  padding: 0.5rem 1rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  font-size: 0.875rem;
+  min-width: 200px;
+}
+
+.filter-input:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.1);
+}
+
+/* Chart Container */
+.chart-container {
+  background: var(--surface);
+  border-radius: var(--radius-md);
+  padding: 1.5rem;
+  margin: 2rem;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid rgba(99, 102, 241, 0.1);
+}
+
+.chart-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.chart-title {
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+/* Floating Action Button */
+.fab {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  background: var(--gradient-primary);
+  color: white;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 10px 15px -3px rgba(99, 102, 241, 0.3);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.fab:hover {
+  background: var(--secondary);
+  transform: translateY(-3px) scale(1.05);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .dashboard-layout {
+    grid-template-columns: 1fr;
+  }
+  
+  .sidebar {
+    display: none;
+  }
+  
+  .data-grid {
+    grid-template-columns: 1fr;
+    padding: 1rem;
+  }
+  
+  .filter-bar {
+    flex-direction: column;
+    padding: 1rem;
+  }
+}
+/* Dynamic Status Colors */
+.status-badge {
+  --status-color: var(--text-secondary);
+  background: rgba(99, 102, 241, 0.1);
+  color: var(--status-color);
+  border: 1px solid rgba(99, 102, 241, 0.2);
+}
+
+.status-badge[data-status="shipped"] { --status-color: var(--success); }
+.status-badge[data-status="delivered"] { --status-color: var(--primary); }
+.status-badge[data-status="pending"] { --status-color: var(--warning); }
+.status-badge[data-status="canceled"] { --status-color: var(--danger); }
+
+/* Chart Improvements */
+.charts-container {
+  display: flex;
+  flex-direction: row;
+  gap: 16px; /* Space between charts */
+  justify-content: center; /* Center charts horizontally */
+  align-items: center;     /* Align charts vertically */
+}
+
+.charts-container canvas {
+  width: 120px !important;  /* Adjust width as needed */
+  height: 70px !important;  /* Adjust height as needed */
+  max-width: 100%;
+}
+.chart-container canvas {
+  max-height: 400px;
+}
+
+/* Loading State */
+.loading-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1001;
+}
+
+/* Better Transitions */
+.data-card, .sidebar-item, .fab {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.chart-wrapper {
+  height: 300px;
+  max-height: 300px;
+}
+
+.chart-wrapper canvas {
+  height: 100% !important;
+  width: 100% !important;
+}
+.main-panel{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+.summary-grid {
+  display: flex;
+  flex-direction: row;
+  gap: 20px; /* Space between cards, adjust as needed */
+  justify-content: space-between; /* Distribute cards evenly */
+  margin-bottom: 24px; /* Optional: space below the row */
+  flex-wrap: wrap;
+}
+
+.summary-card {
+  flex: 1; /* Cards take equal width */
+  min-width: 180px; /* Prevent cards from getting too small */
+  /* Optional: Add padding, background, border, etc. for better appearance */
+}
+
+/* .summary-card {
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  flex: 1 1 200px;
+  min-width: 200px;
+  padding: 1rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+} */
+
+.card-content {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.card-icon {
+  font-size: 2.5rem;
+  margin-right: 1rem;
+  color: #4CAF50; /* default green */
+}
+
+/* Status-specific icon colors */
+.summary-card.delivered .card-icon { color: #4CAF50; } /* green */
+.summary-card.shipped .card-icon { color: #2196F3; } /* blue */
+.summary-card.pending .card-icon { color: #FFC107; } /* amber */
+.summary-card.canceled .card-icon { color: #F44336; } /* red */
+
+.card-stats {
+  flex-grow: 1;
+}
+
+.card-title {
+  margin: 0;
+  font-weight: 600;
+}
+
+.card-value {
+  font-size: 1.5rem;
+  margin: 0;
+}
+
+.card-trend {
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  font-size: 0.9rem;
+}
+
+.trend-up {
+  color: green;
+}
+
+.trend-down {
+  color: red;
+}
+.charts-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: center; /* or space-between / space-around */
+  align-items: center;
+  gap: 1rem; /* spacing between charts */
+  margin-top: 1rem;
+  flex-wrap: nowrap; /* ensure single row */
+}
+
+canvas {
+  background: #fff;
+  border-radius: 6px;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+}
+
+
+#stockChart {
+  width: 350px !important;
+  height: 180px !important;
+  max-width: 100%;
+  display: flex;
+  flex-direction: row;
+}
+
+/* For the small summary charts */
+#shippedChart,
+#pendingChart,
+#deliveredChart {
+  width: 220px !important;
+  height: 150px !important;
+  max-width: 100%;
+  
+}

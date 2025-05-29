@@ -21,18 +21,25 @@ document.addEventListener('DOMContentLoaded', async () => {
   }
 });
 
+// async function fetchInventoryData() {
+//   // Simulated API call
+//   return new Promise(resolve => {
+//     setTimeout(() => {
+//       resolve([
+//         { id: 1, product: 'Laptop', status: 'shipped', quantity: 15, date: '2023-07-20' },
+//         { id: 2, product: 'Mouse', status: 'pending', quantity: 5, date: '2023-07-19' },
+//         { id: 3, product: 'Keyboard', status: 'delivered', quantity: 20, date: '2023-07-18' },
+//         { id: 4, product: 'Monitor', status: 'canceled', quantity: 8, date: '2023-07-17' }
+//       ]);
+//     }, 1000);
+//   });
+// }
 async function fetchInventoryData() {
-  // Simulated API call
-  return new Promise(resolve => {
-    setTimeout(() => {
-      resolve([
-        { id: 1, product: 'Laptop', status: 'shipped', quantity: 15, date: '2023-07-20' },
-        { id: 2, product: 'Mouse', status: 'pending', quantity: 5, date: '2023-07-19' },
-        { id: 3, product: 'Keyboard', status: 'delivered', quantity: 20, date: '2023-07-18' },
-        { id: 4, product: 'Monitor', status: 'canceled', quantity: 8, date: '2023-07-17' }
-      ]);
-    }, 1000);
-  });
+  const response = await fetch('https://2b7656daj8.execute-api.eu-north-1.amazonaws.com/dev/inventory'); // Replace with your actual URL
+  if (!response.ok) {
+    throw new Error('Failed to fetch inventory data');
+  }
+  return await response.json();
 }
 
 function initDashboard() {
